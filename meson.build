@@ -318,7 +318,7 @@ install_headers('source/include/softfloat.h',
                 subdir: 'softfloat3'
                 )
 
-lib = library('softfloat3', sources: common_src + src_8080sse,
+lib = static_library('softfloat3', sources: common_src + src_8080sse,
  include_directories: incdir,
  version: version,
  c_args: ['-Werror-implicit-function-declaration',
