@@ -49,6 +49,9 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 /*----------------------------------------------------------------------------
 *----------------------------------------------------------------------------*/
 #define SOFTFLOAT_BUILTIN_CLZ 1
+#ifndef SET_128_FALSE
 #define SOFTFLOAT_INTRINSIC_INT128 1
+#endif
+
 #include "opts-GCC.h"
 

@@ -318,17 +318,39 @@ install_headers('source/include/softfloat.h',
                 subdir: 'softfloat3'
                 )
 
-lib = static_library('softfloat3', sources: common_src + src_8080sse,
- include_directories: incdir,
- version: version,
- c_args: ['-Werror-implicit-function-declaration',
-   '-DSOFTFLOAT_FAST_INT64',
-    '-O2',
-    '-DSOFTFLOAT_ROUND_ODD',
-    '-DINLINE_LEVEL=5',
-    '-DSOFTFLOAT_FAST_DIV32TO16',
-    '-DSOFTFLOAT_FAST_DIV64TO32'],
- install: true
-    )
-softfloat3_dep = declare_dependency(include_directories : incdir,
-      link_with : lib)
+redhat_test = run_command('test', '-e', '/etc/redhat-release')
+is_redhat = redhat_test.returncode() == 0
+
+if (is_redhat)
+
+    lib = static_library('softfloat3', sources: common_src + src_8080sse,
+     include_directories: incdir,
+     version: version,
+     c_args: ['-Werror-implicit-function-declaration',
+       '-DSOFTFLOAT_FAST_INT64',
+        '-O2',
+        '-DSET_128_FALSE',
+        '-DSOFTFLOAT_ROUND_ODD',
+        '-DINLINE_LEVEL=5',
+        '-DSOFTFLOAT_FAST_DIV32TO16',
+        '-DSOFTFLOAT_FAST_DIV64TO32'],
+     install: true
+        )
+
+else
+    lib = static_library('softfloat3', sources: common_src + src_8080sse,
+     include_directories: incdir,
+     version: version,
+     c_args: ['-Werror-implicit-function-declaration',
+       '-DSOFTFLOAT_FAST_INT64',
+        '-O2',
+        '-DSOFTFLOAT_ROUND_ODD',
+        '-DINLINE_LEVEL=5',
+        '-DSOFTFLOAT_FAST_DIV32TO16',
+        '-DSOFTFLOAT_FAST_DIV64TO32'],
+     install: true
+        )
+
+endif
+
+softfloat3_dep = declare_dependency(include_directories : incdir, link_with : lib)
