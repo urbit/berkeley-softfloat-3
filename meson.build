@@ -313,11 +313,6 @@ src_8080sse = [
 incdir = include_directories('source/include/', 'build/Linux-x86_64-GCC/',
                               'build/Linux-x86_64-GCC', 'source/8086-SSE/')
 
-install_headers('source/include/softfloat.h',
-                'source/include/softfloat_types.h',
-                subdir: 'softfloat3'
-                )
-
 lib = static_library('softfloat3', sources: common_src + src_8080sse,
  include_directories: incdir,
  version: version,
@@ -328,7 +323,7 @@ lib = static_library('softfloat3', sources: common_src + src_8080sse,
     '-DINLINE_LEVEL=5',
     '-DSOFTFLOAT_FAST_DIV32TO16',
     '-DSOFTFLOAT_FAST_DIV64TO32'],
- install: true
+ install: false
     )
 softfloat3_dep = declare_dependency(include_directories : incdir,
       link_with : lib)
